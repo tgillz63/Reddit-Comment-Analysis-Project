@@ -1,5 +1,5 @@
 # Reddit-Comment-Analysis-Project
-Project analyzing Notre Dame football reddit comments
+
 ##Project analyzes reddit comments of the Notre Dame football football subreddit and general /CFB rubreddit using sentiment analysis and topic modeling. 
 
 This project utilizes the Arctic Shift API to scrape reddit comment data, including the date posted(in unix), upvotes, poster username, main post information and mos importantly the comment text. There is no authorization required but there is a 100 post API limit that can be worked around. My analyis focused on comparing the reactions of the general /CFB subreddit and the /NotreDameFootball specific subreddit to both Notre Dame being left out of the playoff and being upset by Northern Illinois. 
