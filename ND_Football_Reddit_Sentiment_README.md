@@ -15,7 +15,7 @@ This project scrapes Reddit and measures how two very different audiences proces
 
 ---
 
-> ### TL;DR
+> ### Too Long; Didn't Read
 > - **Question.** When Notre Dame stumbles, do its own fans and the rest of college football feel the same way about it? This project measures the gap.
 > - **Approach.** I scraped r/CFB and r/notredamefootball comments through the Arctic Shift API, cleaned the text, and ran three layers of analysis: TextBlob polarity and subjectivity, a transformer emotion classifier, and LDA topic modeling.
 > - **Two events.** The pipeline was pointed at two moments: Notre Dame getting upset by Northern Illinois in 2024, and Notre Dame getting left out of the 2025 playoff.
@@ -116,6 +116,7 @@ Raw Reddit text is messy, so the cleaning pass does real work before any model s
 After cleaning, the pipeline drops empty results and removes duplicate comments, so a copy-pasted talking point does not get counted ten times over. What comes out the other side is a deduplicated set of real comment text, ready for analysis.
 
 ---
+<img width="641" height="479" alt="Screenshot 2026-06-29 at 1 29 24 PM" src="https://github.com/user-attachments/assets/dea5fdfe-f94f-412d-b9cb-ddf6344c0a50" />
 
 ## 6. Sentiment: Polarity and Subjectivity
 
@@ -123,13 +124,13 @@ The first sentiment pass runs on spaCy with a TextBlob extension (spacytextblob)
 
 The figures throughout this section come from the Northern Illinois run, which produced the sharper split between the two communities. Plotting polarity as a density curve for each subreddit makes the mood gap easy to see.
 
-![Polarity density for each subreddit after the NIU upset](reports/figures/polarity_density.png)
+<img width="641" height="479" alt="Screenshot 2026-06-29 at 1 29 24 PM" src="https://github.com/user-attachments/assets/219820b1-723f-483b-a82e-78ec67b66983" />
 
 *Polarity distribution for each subreddit after the Northern Illinois upset.*
 
 The clearest pattern in the NIU comparison was intensity. Both communities pushed toward the extremes far more after the Northern Illinois upset than after the playoff snub. The loss was shocking in a way the snub was not, and the comments carried that. A second view, plotting polarity against subjectivity, shows how opinion-heavy the reaction ran.
 
-![Polarity against subjectivity for both communities after the NIU loss](reports/figures/polarity_subjectivity_scatter.png)
+<img width="615" height="460" alt="Screenshot 2026-06-29 at 1 32 47 PM" src="https://github.com/user-attachments/assets/a3dcb7d5-6de3-47f6-a971-71ccc9443ab8" />
 
 *Polarity against subjectivity for both subreddits after the NIU loss.*
 
@@ -141,11 +142,11 @@ The second pass goes deeper than positive-versus-negative. A transformer model, 
 
 To connect emotion to engagement, I plotted comment score by emotion for each subreddit, with outliers hidden so the bulk of the distribution stays readable.
 
-![Comment score by emotion, split by subreddit, after the NIU loss](reports/figures/emotion_boxplot.png)
+<img width="634" height="456" alt="Screenshot 2026-06-29 at 1 28 31 PM" src="https://github.com/user-attachments/assets/7857c33c-9fda-4873-a274-1e4f22124e3f" />
 
 *Comment score by primary emotion, split by subreddit, after the NIU loss.*
 
-This is where the two communities split most sharply. In r/CFB, joyful comments drew heavy upvotes, the general crowd piling on while Notre Dame stumbled. In r/notredamefootball, fear was the emotion that climbed the upvote charts, a pattern that simply was not there after the playoff snub. Following the NIU loss, the fanbase was anxious about where the program was heading, full of questions about Marcus Freeman and worn down by a revolving door of transfer quarterbacks. The playoff snub did not trigger the same fear, because the 2024 playoff run had already shown fans the team could get there.
+This is where the two communities split most sharply. In r/CFB, joyful comments drew heavy upvotes, the general crowd piling on while Notre Dame stumbled. Following this loss, Notre Dame fas were anxious about where the program was heading, full of questions about Marcus Freeman and worn down by a revolving door of transfer quarterbacks. The playoff snub did not trigger the same fear, because the 2024 playoff run had already shown fans the team could get there.
 
 ---
 
@@ -157,7 +158,8 @@ Getting comments ready for LDA took a few steps. The text gets broken down to th
 
 The fitted model sorts the comments into five topics, which I explored with pyLDAvis, an interactive view that maps topics by size and overlap and ranks the terms inside each one.
 
-![Static snapshot of the pyLDAvis topic map](reports/figures/lda_pyldavis.png)
+<img width="586" height="410" alt="Screenshot 2026-06-29 at 1 43 55 PM" src="https://github.com/user-attachments/assets/ac2d5a56-5a2a-48bb-9c17-14ba6eb68343" />
+
 
 *A static snapshot of the interactive pyLDAvis output from the NIU comment set. The live version is explorable in the notebook.*
 
@@ -190,8 +192,6 @@ One thing to remember when you repoint it: the topic-modeling stopword list is t
 ---
 
 ## 11. Limitations
-
-I would rather name the weak spots than let a reader assume there are none.
 
 - **Lexicon sentiment misreads sports talk.** TextBlob scores the words on the page and misses the tone behind them, so sarcasm, irony, and trash talk routinely fool it. The transformer emotion pass helps, but neither model was trained on sports discourse.
 - **Reddit is not a representative sample.** The users who post skew young, online, and highly engaged. They are not a stand-in for the whole fanbase or the broader public, so the findings describe Reddit's most active corners more than they describe everyone else.
